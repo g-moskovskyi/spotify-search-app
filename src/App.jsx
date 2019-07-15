@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import authorization from '../src/utils/authorisation/authorization';
+import authorization from '../src/utils/authorization/authorization';
 
 
 function App() {
