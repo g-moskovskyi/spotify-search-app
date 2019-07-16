@@ -1,35 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import authorization from '../src/utils/authorization/authorization';
-
-
-function App() {
-  authorization();
-
-  return ( <
-    div className = "App" >
-    <
-    header className = "App-header" >
-    <
-    img src = {
-      logo
-    }
-    className = "App-logo"
-    alt = "logo" / >
-    <
-    p >
-    Edit < code > src / App.js < /code> and save to reload. < /
-    p > <
-    a className = "App-link"
-    href = "https://reactjs.org"
-    target = "_blank"
-    rel = "noopener noreferrer" >
-    Learn React <
-    /a> < /
-    header > <
-    /div>
-  );
+// import Header from './components/header/header.jsx';
+import Navbar from './components/navbar/navbar.jsx';
+export default class App extends React.Component{
+  render () {
+    authorization();
+    return (
+      <div className= '_page'>
+        <nav className="nav">
+          It will be Navbar
+          < Navbar / >
+        </nav>
+        <section className="content">
+          <header className="header">It will be Search-form</header>
+          <div className="playlist">It will be Playlist</div>
+        </section>
+      </div>
+    );
+  }
 }
-
-export default App;
