@@ -1,20 +1,21 @@
 ._page {
   max-width: 1024px;
   height: 100vh;
+  margin: 0 auto;
   display: flex;
   background-color: #193549;
 }
 
-.nav {
+.fav-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 20%;
+  width: 50%;
   height: 100%;
   border: 1px solid red;
 }
 
-.content {
+.play-section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,7 +30,7 @@
   border: 1px solid white;
 }
 
-.playlist {
+.list {
   width: 100%;
   flex-grow: 1;
   border: 1px solid aqua;
