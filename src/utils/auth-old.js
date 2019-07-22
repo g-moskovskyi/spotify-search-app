@@ -1,4 +1,4 @@
-function authorization() {
+function auth_old () {
 
     var client_id = '6b1ee17bdc7643e7a99a095bd321dbb2'; // Your client id
     var querystring = require( 'querystring' );
@@ -12,7 +12,7 @@ function authorization() {
     login()
     // };
 
-    function generateRandomString( length ) {
+    function generateRandomString ( length ) {
         let text = '';
         let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -22,7 +22,7 @@ function authorization() {
         return text;
     };
 
-    function login() {
+    function login () {
         /**
          * Generates a random string containing numbers and letters
          * @param  {number} length The length of the string
@@ -54,4 +54,4 @@ function authorization() {
     }
 }
 
-export default authorization;
+export default auth_old;
