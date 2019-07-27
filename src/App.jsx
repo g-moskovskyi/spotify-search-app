@@ -2,10 +2,8 @@ import React from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import './App.scss';
 import Auth from './utils/auth.js';
-import UserTopTracks from './components/user-top-tracks/user-top-tracks.jsx';
-import UserSavedTracks from './components/user-saved-tracks/user-saved-tracks.jsx';
 import SearchBox from './components/search-box/search-box.jsx';
-// import Header from './components/header/header.jsx';
+import TrackList1 from './components/track-list1/track-list1';
 export default class App extends React.Component {
   constructor ( props ) {
     super( props );
@@ -89,7 +87,8 @@ export default class App extends React.Component {
         <div className='_page' >
           <section className="fav-section" >
             Here will be Favorite List
-            < UserSavedTracks mySavedTracks={ this.mySavedTracks } items={ this.state.savedTracksItems } />
+
+            < TrackList1 trackRequest={ this.mySavedTracks } items={ this.state.savedTracksItems } />
           </section >
           <section className="play-section">
             <header className="header" >
@@ -98,7 +97,8 @@ export default class App extends React.Component {
               < /header>
           <div className="list" >
                 Here will be lists
-                < UserTopTracks myTopTracks={ this.myTopTracks } items={ this.state.topTrackItems } />
+
+                < TrackList1 trackRequest={ this.myTopTracks } items={ this.state.topTrackItems } />
               </div >
         </section >
       </div>
