@@ -1,5 +1,5 @@
 import React from 'react';
-import './track-list1.scss';
+import './track-list.scss';
 import ListItem from '../list-item/list-item.jsx'
 
 export default class TrackList extends React.Component {

@@ -3,7 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import './App.scss';
 import Auth from './utils/auth.js';
 import SearchBox from './components/search-box/search-box.jsx';
-import TrackList1 from './components/track-list1/track-list1';
+import TrackList from './components/track-list/track-list';
 export default class App extends React.Component {
   constructor ( props ) {
     super( props );
@@ -88,7 +88,7 @@ export default class App extends React.Component {
           <section className="fav-section" >
             Here will be Favorite List
 
-            < TrackList1 trackRequest={ this.mySavedTracks } items={ this.state.savedTracksItems } />
+            < TrackList trackRequest={ this.mySavedTracks } items={ this.state.savedTracksItems } />
           </section >
           <section className="play-section">
             <header className="header" >
@@ -98,7 +98,7 @@ export default class App extends React.Component {
           <div className="list" >
                 Here will be lists
 
-                < TrackList1 trackRequest={ this.myTopTracks } items={ this.state.topTrackItems } />
+                < TrackList trackRequest={ this.myTopTracks } items={ this.state.topTrackItems } />
               </div >
         </section >
       </div>
