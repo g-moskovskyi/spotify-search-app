@@ -4,7 +4,7 @@ import './list-item.scss';
 export default class ListItem extends React.Component {
     constructor ( props ) {
         super( props );
-        this.item = props.item;
+        this.item = this.props.item;
         this.name = this.item.name;
         this.artists = this.artistsList( this.item );
     }
@@ -12,7 +12,8 @@ export default class ListItem extends React.Component {
     artistsList ( item ) {
         let artistsList = [];
         for ( let i in item.artists ) {
-            if ( i === ( item.artists.length - 1 ) ) {
+
+            if ( +i === item.artists.length - 1 ) {
                 artistsList.push( item.artists[ i ].name )
             }
             else {

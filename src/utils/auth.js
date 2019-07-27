@@ -4,10 +4,9 @@ function Auth () {
     var querystring = require( 'querystring' );
     // var client_secret = 'cb274f971da1420183ac57deb1cc56f4';
     // Your secret
-    var redirect_uri = 'http://localhost/callback'; // Your redirect uri
+    var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
     var stateKey = 'spotify_auth_state';
-    let state = localStorage.getItem( stateKey );
-    console.log( state );
+    var state = localStorage.getItem( stateKey );
     login();
 
     function generateRandomString ( length ) {
@@ -41,39 +40,35 @@ function Auth () {
                 redirect_uri: redirect_uri,
                 state: state
             } ) );
-        console.log( 'url', url );
         openLogin( url );
-        getAccessToken();
-
     }
 
-
     function openLogin ( url ) {
-        var width = 450,
+        const width = 450,
             height = 730,
             left = 0,
             top = 0;
-
-        window.open( url,
+        var loginWindow = window.open( url,
             'Spotify',
             'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
         );
+        setTimeout( init( loginWindow ), 3000 );
     };
 
-    function getAccessToken () {
-        var expires = 0 + localStorage.getItem( 'pa_expires', '0' );
-        if ( ( new Date() ).getTime() > expires ) {
-            return '';
+    function init ( loginWindow ) {
+        var hash = {};
+        loginWindow.location.hash.replace( /^#\/?/, '' ).split( '&' ).forEach( function ( kv ) {
+            var spl = kv.indexOf( '=' );
+            if ( spl !== -1 ) {
+                hash[ kv.substring( 0, spl ) ] = decodeURIComponent( kv.substring( spl + 1 ) );
+            }
+        } );
+        if ( hash.access_token ) {
+            localStorage.setItem( 'hash', JSON.stringify( hash ) );
+            loginWindow.close();
         }
-        var token = localStorage.getItem( 'pa_token', '' );
-        return token;
-    };
-    function setAccessToken ( token, expires_in ) {
-        localStorage.setItem( 'pa_token', token );
-        localStorage.setItem( 'pa_expires', ( new Date() ).getTime() + expires_in );
-        // _token = token;
-        // _expires = expires_in;
-    };
+
+    }
 }
 
 
