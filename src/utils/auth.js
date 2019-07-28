@@ -2,11 +2,9 @@ function Auth () {
 
     var client_id = '6b1ee17bdc7643e7a99a095bd321dbb2'; // Your client id
     var querystring = require( 'querystring' );
-    // var client_secret = 'cb274f971da1420183ac57deb1cc56f4';
-    // Your secret
     var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
     var stateKey = 'spotify_auth_state';
-    var state = localStorage.getItem( stateKey );
+    // var state = localStorage.getItem( stateKey );
     login();
 
     function generateRandomString ( length ) {

@@ -16,9 +16,6 @@ export default class App extends React.Component {
       searchedTracks: ''
     } );
 
-    this.mySavedTracks = this.mySavedTracks.bind( this );
-    this.myTopTracks = this.myTopTracks.bind( this );
-    this.searchTracks = this.searchTracks.bind( this );
   }
   componentDidMount () {
     this.login();
@@ -45,7 +42,7 @@ export default class App extends React.Component {
     }
   }
 
-  mySavedTracks () {
+  mySavedTracks = () => {
     this.spotifyApi.getMySavedTracks()
       .then( ( data ) => {
         localStorage.setItem( 'MySavedTracks', JSON.stringify( data ) );
@@ -59,7 +56,8 @@ export default class App extends React.Component {
         console.error( err );
       } );
   }
-  myTopTracks () {
+
+  myTopTracks = () => {
     this.spotifyApi.getMyTopTracks()
       .then( ( data ) => {
         localStorage.setItem( 'MyTopTracks', JSON.stringify( data ) );
@@ -69,15 +67,44 @@ export default class App extends React.Component {
       } );
   }
 
-  searchTracks ( value ) {
-    let type = [ 'track' ];
-    this.spotifyApi.search( value, type )
-      .then( ( data ) => {
-        localStorage.setItem( 'SearchedTracks', JSON.stringify( data ) );
-        this.setState( { searchedTracks: JSON.parse( localStorage.getItem( 'SearchedTracks' ) ).items } )
-      }, ( err ) => {
-        console.error( err );
-      } );
+  searchTracks = ( value ) => {
+    if ( value ) {
+      let type = [ 'track' ];
+      this.spotifyApi.search( value, type )
+        .then( ( data ) => {
+          localStorage.setItem( 'SearchedTracks', JSON.stringify( data ) );
+          this.setState( () => (
+            { searchedTracks: JSON.parse( localStorage.getItem( 'SearchedTracks' ) ).tracks.items } )
+          )
+        }, ( err ) => {
+          console.error( err );
+        } );
+    }
+  }
+
+  moveTrack = ( type, id ) => {
+    id = [ id ];
+    if ( type === 'add' ) {
+      this.spotifyApi.addToMySavedTracks( id )
+        .then( () => {
+          this.mySavedTracks();
+        }
+          , ( err ) => {
+            console.error( err );
+          } );
+    }
+    else if ( type === 'delete' ) {
+      this.spotifyApi.removeFromMySavedTracks( id )
+        .then( () => {
+          this.mySavedTracks();
+        }
+          , ( err ) => {
+            console.error( err );
+          } );
+    }
+    else {
+      console.log( 'Error: Type of Button is wrong' )
+    }
   }
 
   render () {
@@ -88,20 +115,38 @@ export default class App extends React.Component {
           <section className="fav-section" >
             Here will be Favorite List
 
-            < TrackList trackRequest={ this.mySavedTracks } items={ this.state.savedTracksItems } />
+            < TrackList
+              header='Saved tracks'
+              trackRequest={ this.mySavedTracks }
+              items={ this.state.savedTracksItems }
+              button='delete'
+              buttonFunc={ this.moveTrack }
+            />
           </section >
           <section className="play-section">
             <header className="header" >
               Here will be Search - form
-              <SearchBox searchTracks={ this.searchTracks } items={ this.state.searchedTracks } />
+              <SearchBox
+                searchTracks={ this.searchTracks }
+                items={ this.state.searchedTracks } />
               < /header>
-          <div className="list" >
-                Here will be lists
-
-                < TrackList trackRequest={ this.myTopTracks } items={ this.state.topTrackItems } />
+            <div className="list" >
+                {/* < TrackList 
+                trackRequest={ this.myTopTracks } 
+                items={ this.state.topTrackItems } 
+                button='add'
+                buttonFunc={ this.moveTrack }/> */ }
+                < TrackList
+                  header='Finded traks'
+                  trackRequest={ () => { } }
+                  items={ this.state.searchedTracks }
+                  button='add'
+                  buttonFunc={ this.moveTrack }
+                />
               </div >
-        </section >
-      </div>
+          </section >
+        </div>
           );
         }
-      }}
+      }
+    }

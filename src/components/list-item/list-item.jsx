@@ -1,5 +1,6 @@
 import React from 'react';
 import './list-item.scss';
+import TrackButton from '../track-button/track-button.jsx'
 
 export default class ListItem extends React.Component {
     constructor ( props ) {
@@ -7,6 +8,7 @@ export default class ListItem extends React.Component {
         this.item = this.props.item;
         this.name = this.item.name;
         this.artists = this.artistsList( this.item );
+        this.id = this.props.item.id;
     }
 
     artistsList ( item ) {
@@ -26,7 +28,12 @@ export default class ListItem extends React.Component {
     render () {
         return (
             <div className='list-item'>
-                <div className="list-item__button">Add</div>
+                <div className="list-item__button">
+                    <TrackButton
+                        type={ this.props.button }
+                        id={ this.id }
+                        buttonFunc={ this.props.buttonFunc } />
+                </div>
                 <div className="list-item__track">
                     <div className="name">{ this.name }</div>
                     <div className="artist-name">{ this.artists }</div>
